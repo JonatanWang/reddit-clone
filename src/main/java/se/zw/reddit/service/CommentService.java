@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import se.zw.reddit.dto.CommentsDto;
 import se.zw.reddit.exception.PostNotFoundException;
 import se.zw.reddit.exception.SpringRedditException;
+import se.zw.reddit.mapper.CommentMapper;
 import se.zw.reddit.model.Comment;
 import se.zw.reddit.model.NotificationEmail;
 import se.zw.reddit.model.Post;
@@ -36,12 +37,12 @@ public class CommentService {
         Comment comment = commentMapper.map(commentsDto, post, authService.getCurrentUser());
         commentRepository.save(comment);
 
-        String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post." + POST_URL);
+        String message = mailContentBuilder.build(post.getUser().getUserName() + " posted a comment on your post." + POST_URL);
         sendCommentNotification(message, post.getUser());
     }
 
     private void sendCommentNotification(String message, User user) {
-        mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
+        mailService.sendMail(new NotificationEmail(user.getUserName() + " Commented on your post", user.getEmail(), message));
     }
 
     public List<CommentsDto> getAllCommentsForPost(Long postId) {

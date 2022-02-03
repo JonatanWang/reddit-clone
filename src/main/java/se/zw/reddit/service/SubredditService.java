@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.zw.reddit.dto.SubredditDto;
 import se.zw.reddit.exception.SpringRedditException;
+import se.zw.reddit.mapper.SubredditMapper;
 import se.zw.reddit.model.Subreddit;
 import se.zw.reddit.repository.SubredditRepository;
 
